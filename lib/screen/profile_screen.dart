@@ -8,7 +8,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool _isSignedIn;
+  bool _isSignedIn = false;
 
   bool get isSignedIn => _isSignedIn;
 
