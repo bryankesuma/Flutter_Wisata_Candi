@@ -9,7 +9,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool _isSignedIn = false;
-
+  String fullName = 'Nathanael Bryan Kesuma';
+  String userName = 'BryanK';
+  int favoriteCandiCount = 0;
   bool get isSignedIn => _isSignedIn;
 
   set isSignedIn(bool value) {
@@ -32,12 +34,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  // Todo 1 Deklarasikan Variabel
-                  bool isSignedIn = false;
-                  String fullName = '';
-                  String userName = '';
-                  int favoriteCandiCount = 0;
-
                   // Todo 2 Buat ProfileHeader
                   Stack(
                     alignment: Alignment.bottomRight,
@@ -72,21 +68,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        child: Row(children: [
-                          Icon(Icons.lock, color:Colors.amber),
-                          SizedBox(width: 8),
-                          Text('Pengguna', style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold
-                          )),
-                        ]),
+                        child: Row(
+                          children: [
+                            Icon(Icons.lock, color: Colors.amber),
+                            SizedBox(height: 8),
+                            Text(
+                              'Pengguna',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 4),
+                        Divider(color: Colors.deepPurple),
                       ),
                       Expanded(
-                        child: Text(': $userName',
-                        style: const TextStyle(fontSize: 18)),
+                        child: Text(
+                          ': $userName',
+                          style: const TextStyle(fontSize: 18),
+                        ),
                       ),
+                      if (isSignedIn) const Icon(Icons.edit),
                     ],
-                  )
+                  ),
+                  SizedBox(height: 4),
+                  Divider(color: Colors.deepPurple),
+                  SizedBox(height: 16),
                   // Todo 4 Buat ProfileActions
+                  const SizedBox(height: 4),
+                  Divider(color: Colors.deepPurple[100]),
+                  const SizedBox(height: 20),
+                  isSignedIn
+                      ? TextButton(
+                          onPressed: signOut,
+                          child: const Text('Sign Out'),
+                        )
+                      : TextButton(
+                          onPressed: signIn,
+                          child: const Text('Sign In'),
+                        ),
                 ],
               ),
             ),
