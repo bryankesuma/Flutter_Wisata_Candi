@@ -14,6 +14,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int favoriteCandiCount = 0;
   bool get isSignedIn => _isSignedIn;
 
+  void signIn() {
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
+
+  void signOut() {
+    setState(() {
+      isSignedIn = !isSignedIn;
+    });
+  }
+
   set isSignedIn(bool value) {
     _isSignedIn = value;
   }
@@ -79,10 +91,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            SizedBox(height: 4),
+                            Divider(color: Colors.deepPurple),
                           ],
                         ),
-                        SizedBox(height: 4),
-                        Divider(color: Colors.deepPurple),
                       ),
                       Expanded(
                         child: Text(
@@ -102,11 +114,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 20),
                   isSignedIn
                       ? TextButton(
-                          onPressed: signOut,
+                          onPressed: () {
+                            signOut();
+                          },
                           child: const Text('Sign Out'),
                         )
                       : TextButton(
-                          onPressed: signIn,
+                          onPressed: () {
+                            signIn();
+                          },
                           child: const Text('Sign In'),
                         ),
                 ],
