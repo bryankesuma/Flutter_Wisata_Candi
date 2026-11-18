@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wisata_candi_2627_51/provider/auth_provider.dart';
+import 'package:flutter_wisata_candi_2627_51/provider/favorite_provider.dart';
+import 'package:flutter_wisata_candi_2627_51/widgets/profile_info_item.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const new({super.key});
@@ -32,6 +36,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final favoriteCount = context.watch<FavoriteProvider>().count;
+
+    final auth = context.watch<AuthProvider>();
+
+    var profileInfoItem = ProfileInfoItem(
+      icon: Icons.favorite,
+      label: 'Favorit',
+      value: favoriteCount > 0 ? '$favoriteCount' : '',
+    );
+
     return Scaffold(
       body: Stack(
         children: [
@@ -76,35 +90,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                   // Todo 3 Buat ProfileInfo
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          children: [
-                            Icon(Icons.lock, color: Colors.amber),
-                            SizedBox(height: 8),
-                            Text(
-                              'Pengguna',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Divider(color: Colors.deepPurple),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          ': $userName',
-                          style: const TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      if (isSignedIn) const Icon(Icons.edit),
-                    ],
+                  // Row(
+                  //   children: [
+                  //     SizedBox(
+                  //       width: MediaQuery.of(context).size.width,
+                  //       child: Row(
+                  //         children: [
+                  //           Icon(Icons.lock, color: Colors.amber),
+                  //           SizedBox(height: 8),
+                  //           Text(
+                  //             'Pengguna',
+                  //             style: TextStyle(
+                  //               fontSize: 18,
+                  //               fontWeight: FontWeight.bold,
+                  //             ),
+                  //           ),
+                  //           SizedBox(height: 4),
+                  //           Divider(color: Colors.deepPurple),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //     Expanded(
+                  //       child: Text(
+                  //         ': $userName',
+                  //         style: const TextStyle(fontSize: 18),
+                  //       ),
+                  //     ),
+                  //     if (isSignedIn) const Icon(Icons.edit),
+                  //   ],
+                  // ),
+                  ProfileInfoItem(
+                    icon: Icons.lock,
+                    label: 'Pengguna',
+                    value: userName,
+                    iconColor: Colors.amber,
+                  ), // SizedBox, Divider, SizedBox
+                  ProfileInfoItem(
+                    icon: Icons.person,
+                    label: 'Nama',
+                    value: fullName,
+                    showEditIcon: isSignedIn,
+                    onEditPressed: () => debugPrint('Icon edit ditekan'),
+                    iconColor: Colors.blue,
+                  ), // SizedBox, Divider, SizedBox
+                  ProfileInfoItem(
+                    icon: Icons.favorite,
+                    label: 'Favorit',
+                    value: favoriteCandiCount > 0 ? '$favoriteCandiCount' : '',
+                    iconColor: Colors.red,
                   ),
+
                   SizedBox(height: 4),
                   Divider(color: Colors.deepPurple),
                   SizedBox(height: 16),
@@ -112,11 +147,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SizedBox(height: 4),
                   Divider(color: Colors.deepPurple[100]),
                   const SizedBox(height: 20),
-                  isSignedIn
+                  auth.isSignedIn
                       ? TextButton(
-                          onPressed: () {
-                            signOut();
-                          },
+                          onPressed: () =>
+                              context.read<AuthProvider>().signOut(),
                           child: const Text('Sign Out'),
                         )
                       : TextButton(

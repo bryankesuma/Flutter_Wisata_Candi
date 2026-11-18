@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wisata_candi_2627_51/models/candi.dart';
+import 'package:flutter_wisata_candi_2627_51/provider/favorite_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
   final Candi candi;
@@ -8,6 +10,18 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isFav = context.watch<FavoriteProvider>().isFavorite(candi.name);
+
+    IconButton(
+      onPressed: () {
+        context.read<FavoriteProvider>().toggle(candi.name);
+      },
+      icon: Icon(
+        isFav ? Icons.favorite : Icons.favorite_border,
+        color: isFav ? Colors.red : null,
+      ),
+    );
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
