@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_wisata_candi_2627_51/models/candi.dart';
+import 'package:flutter_wisata_candi_2627_51/provider/auth_provider.dart';
 import 'package:flutter_wisata_candi_2627_51/provider/favorite_provider.dart';
+import 'package:flutter_wisata_candi_2627_51/screen/profile_screen.dart';
 import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -22,7 +24,21 @@ class DetailScreen extends StatelessWidget {
       ),
     );
 
+    final auth = context.watch<AuthProvider>();
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+        Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => const ProfileScreen()),
+        );
+      },
+
+      child: const Icon(Icons.person),
+    ),
+
       body: SingleChildScrollView(
         child: Column(
           children: [

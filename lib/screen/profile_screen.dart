@@ -42,6 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     var profileInfoItem = ProfileInfoItem(
       icon: Icons.favorite,
+      iconColor: Colors.white12,
       label: 'Favorit',
       value: favoriteCount > 0 ? '$favoriteCount' : '',
     );
