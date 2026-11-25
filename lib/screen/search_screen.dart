@@ -3,7 +3,7 @@ import 'package:flutter_wisata_candi_2627_51/data/candi_data.dart';
 import 'package:flutter_wisata_candi_2627_51/models/candi.dart';
 
 class SearchScreen extends StatefulWidget {
-  const new({super.key});
+  const SearchScreen({super.key});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
